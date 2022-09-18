@@ -33,6 +33,8 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
 
     private var revenue = 0
     private var dessertsSold = 0
+    private var dessertTimer = DessertTimer()
+
 
     // Contains all the views
     private lateinit var binding: ActivityMainBinding
@@ -155,11 +157,18 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
     override fun onStart() {
         super.onStart()
         Timber.i("onStart called")
+        dessertTimer.startTimer()
     }
 
     override fun onResume() {
         super.onResume()
         Timber.i("onResume called")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Timber.i("onPause called")
+
     }
 
     override fun onDestroy() {
@@ -175,5 +184,6 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
     override fun onStop() {
         super.onStop()
         Timber.i("onStop called")
+        dessertTimer.stopTimer()
     }
 }
