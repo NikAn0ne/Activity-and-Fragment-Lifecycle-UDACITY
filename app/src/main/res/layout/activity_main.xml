@@ -27,6 +27,9 @@
         <variable
             name="amountSold"
             type="Integer" />
+        <variable
+            name="gameViewModel"
+            type="com.example.android.dessertpusher.GameViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
