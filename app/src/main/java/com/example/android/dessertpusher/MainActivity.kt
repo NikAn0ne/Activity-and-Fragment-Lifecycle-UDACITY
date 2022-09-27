@@ -32,7 +32,9 @@ import timber.log.Timber
 private const val KEY_REVENUE = "key_revenue"
 private const val KEY_DESSERTS_SOLD = "deserts_sold"
 private const val KEY_DESSERT_TIMER = "desert_timer"
-private const val KEY_DESSERT_IMMAGE = "dessert_immage"
+private const val KEY_DESSERT_IMAGE = "dessert_image"
+private const val KEY_DESSERT_PRICE = "dessert_price"
+private const val KEY_DESSERT_AMOUNT = "dessert_amount"
 
 class MainActivity : AppCompatActivity(), LifecycleObserver {
 
@@ -51,7 +53,7 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
      * the image, the price it's sold for, and the startProductionAmount, which determines when
      * the dessert starts to be produced.
      */
-    data class Dessert(val imageId: Int, val price: Int, val startProductionAmount: Int)
+    data class Dessert(var imageId: Int, var price: Int, var startProductionAmount: Int)
 
     // Create a list of all desserts, in order of when they start being produced
     private val allDesserts = listOf(
@@ -69,6 +71,7 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
             Dessert(R.drawable.nougat, 5000, 16000),
             Dessert(R.drawable.oreo, 6000, 20000)
     )
+
     private var currentDessert = allDesserts[0]
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -88,6 +91,10 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
             revenue = savedInstanceState.getInt(KEY_REVENUE, 0)
             dessertsSold = savedInstanceState.getInt(KEY_DESSERTS_SOLD, 0)
             dessertTimer.secondsCount = savedInstanceState.getInt(KEY_DESSERT_TIMER, 0)
+            currentDessert.imageId = savedInstanceState.getInt(KEY_DESSERT_IMAGE)
+            currentDessert.price = savedInstanceState.getInt(KEY_DESSERT_PRICE)
+            currentDessert.startProductionAmount = savedInstanceState.getInt(KEY_DESSERT_AMOUNT)
+
         }
 
         // Set the TextViews to the right values
@@ -172,7 +179,9 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
         outState.putInt(KEY_REVENUE, revenue)
         outState.putInt(KEY_DESSERTS_SOLD, dessertsSold)
         outState.putInt(KEY_DESSERT_TIMER, dessertTimer.secondsCount)
-        outState.putInt(KEY_DESSERT_IMMAGE, currentDessert.imageId)
+        outState.putInt(KEY_DESSERT_IMAGE, currentDessert.imageId)
+        outState.putInt(KEY_DESSERT_PRICE,currentDessert.price)
+        outState.putInt(KEY_DESSERT_AMOUNT, currentDessert.startProductionAmount)
     }
 
     override fun onStart() {
